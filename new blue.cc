@@ -1847,7 +1847,7 @@ local Toggle = SpooferrSection:AddToggle({
     Name = 'Spoof Enabled',
     Value = false,
     Flag = 'spoofenbaled',
-    Locked = false,
+    Locked = true,
     Callback = function(Value)
         spoofEnabled = Value
 
@@ -1863,7 +1863,7 @@ local TextBoxName = SpooferrSection:AddTextbox({
     Name = 'Set Name',
     Flag = "setname",
     Value = "blue.cc",
-    Locked = false, -- Initially locked since "Spoof Enabled" is false
+    Locked = true, -- Initially locked since "Spoof Enabled" is false
     Callback = function(Value)
         if spoofEnabled then
             updateName(Value)
@@ -1876,7 +1876,7 @@ local TextBoxUsername = SpooferrSection:AddTextbox({
     Name = 'Set Username',
     Flag = "setusername",
     Value = "blue.cc",
-    Locked = false, -- Initially locked since "Spoof Enabled" is false
+    Locked = true, -- Initially locked since "Spoof Enabled" is false
     Callback = function(Value)
         if spoofEnabled then
             updateUsername(Value)
@@ -2527,6 +2527,31 @@ localPlayer.CharacterAdded:Connect(onCharacterAdded)
 })
 
 AutoSection:AddButton({
+    Name = 'Enable ATMS',
+    Callback = function()
+        local function enableProximityPrompt(prompt)
+            if prompt then
+                prompt.Enabled = state
+            end
+        end
+
+        local atmNames = {
+            "ATM1", "ATM2", "ATM3", "ATM4", "ATM5",
+            "ATM6", "ATM7", "ATM8", "ATM9", "ATM10",
+            "ATM11", "ATM12", "ATM13", "ATM14", "ATM15"
+        }
+
+        for _, atmName in ipairs(atmNames) do
+            local atm = workspace.Map.ATMS:FindFirstChild(atmName)
+            if atm then
+                local proximityPrompt = atm:FindFirstChild("Attachment"):FindFirstChild("ProximityPrompt")
+                enableProximityPrompt(proximityPrompt)
+            end
+        end
+    end
+})
+
+AutoSection:AddButton({
     Name = 'tp active ATM',
     Callback = function()
         local player = game.Players.LocalPlayer
@@ -2563,37 +2588,12 @@ AutoSection:AddButton({
                     local cameraOffset = Vector3.new(0, 5, -10) 
                     camera.CFrame = CFrame.new(humanoidRootPart.Position + cameraOffset, atm.cframe.Position)
 
-                    wait(0.2)
+                    wait(0.5)
                     
                     fireproximityprompt(proximityPrompt, 1, true)
                     
                     return
                 end
-            end
-        end
-    end
-})
-
-AutoSection:AddButton({
-    Name = 'Enable all ATM',
-    Callback = function()
-        local function enableProximityPrompt(prompt)
-            if prompt then
-                prompt.Enabled = state
-            end
-        end
-
-        local atmNames = {
-            "ATM1", "ATM2", "ATM3", "ATM4", "ATM5",
-            "ATM6", "ATM7", "ATM8", "ATM9", "ATM10",
-            "ATM11", "ATM12", "ATM13", "ATM14", "ATM15"
-        }
-
-        for _, atmName in ipairs(atmNames) do
-            local atm = workspace.Map.ATMS:FindFirstChild(atmName)
-            if atm then
-                local proximityPrompt = atm:FindFirstChild("Attachment"):FindFirstChild("ProximityPrompt")
-                enableProximityPrompt(proximityPrompt)
             end
         end
     end
