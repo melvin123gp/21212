@@ -2526,7 +2526,7 @@ localPlayer.CharacterAdded:Connect(onCharacterAdded)
     end
 })
 
-GeneralSection:AddButton({
+AutoSection:AddButton({
     Name = 'tp active ATM',
     Callback = function()
         local player = game.Players.LocalPlayer
@@ -2574,7 +2574,7 @@ GeneralSection:AddButton({
     end
 })
 
-GeneralSection:AddButton({
+AutoSection:AddButton({
     Name = 'Enable all ATM',
     Callback = function()
         local function enableProximityPrompt(prompt)
