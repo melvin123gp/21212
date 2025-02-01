@@ -2525,3 +2525,76 @@ end
 localPlayer.CharacterAdded:Connect(onCharacterAdded)
     end
 })
+
+GeneralSection:AddButton({
+    Name = 'tp active ATM',
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        local camera = workspace.CurrentCamera
+
+        local ATMS = {
+            {name = "ATM1", cframe = CFrame.new(-33.1487, 3.7370, -299.5453), path = "ATM1"},
+            {name = "ATM2", cframe = CFrame.new(538.4818, 3.7371, -349.0415), path = "ATM2"},
+            {name = "ATM3", cframe = CFrame.new(497.8156, 3.7839, 405.5681), path = "ATM3"},
+            {name = "ATM4", cframe = CFrame.new(236.1748, 3.1180, -165.3973), path = "ATM4"},
+            {name = "ATM5", cframe = CFrame.new(-652.0219, 4.2857, 155.1690), path = "ATM5"},
+            {name = "ATM6", cframe = CFrame.new(-455.1304, 4.3107, 370.8311), path = "ATM6"},
+            {name = "ATM7", cframe = CFrame.new(-266.3022, 4.4058, -212.2364), path = "ATM7"},
+            {name = "ATM8", cframe = CFrame.new(-10.4940, 3.7371, 233.9844), path = "ATM8"},
+            {name = "ATM9", cframe = CFrame.new(717.0417, 3.8176, 413.7101), path = "ATM9"},
+            {name = "ATM10", cframe = CFrame.new(-536.8209, 4.2857, -20.3541), path = "ATM10"},
+            {name = "ATM11", cframe = CFrame.new(-652.021, 4.285, 155.169), path = "ATM11"},
+            {name = "ATM12", cframe = CFrame.new(714.4320, 4.2857, -240.3657), path = "ATM12"},
+            {name = "ATM13", cframe = CFrame.new(-314.9244, 3.8715, 145.9376), path = "ATM13"},
+            {name = "ATM14", cframe = CFrame.new(-377.9388, 4.3107, -359.7116), path = "ATM14"},
+            {name = "ATM15", cframe = CFrame.new(360.0960, 3.7371, -359.4165), path = "ATM15"},
+        }
+
+        for _, atm in ipairs(ATMS) do
+            local atmPath = workspace:FindFirstChild("Map"):FindFirstChild("ATMS"):FindFirstChild(atm.path)
+            if atmPath and atmPath:FindFirstChild("Attachment") then
+                local proximityPrompt = atmPath.Attachment:FindFirstChild("ProximityPrompt")
+                if proximityPrompt and proximityPrompt.Enabled then
+                    
+                    humanoidRootPart.CFrame = atm.cframe
+                    
+                    local cameraOffset = Vector3.new(0, 5, -10) 
+                    camera.CFrame = CFrame.new(humanoidRootPart.Position + cameraOffset, atm.cframe.Position)
+
+                    wait(0.2)
+                    
+                    fireproximityprompt(proximityPrompt, 1, true)
+                    
+                    return
+                end
+            end
+        end
+    end
+})
+
+GeneralSection:AddButton({
+    Name = 'Enable all ATM',
+    Callback = function()
+        local function enableProximityPrompt(prompt)
+            if prompt then
+                prompt.Enabled = state
+            end
+        end
+
+        local atmNames = {
+            "ATM1", "ATM2", "ATM3", "ATM4", "ATM5",
+            "ATM6", "ATM7", "ATM8", "ATM9", "ATM10",
+            "ATM11", "ATM12", "ATM13", "ATM14", "ATM15"
+        }
+
+        for _, atmName in ipairs(atmNames) do
+            local atm = workspace.Map.ATMS:FindFirstChild(atmName)
+            if atm then
+                local proximityPrompt = atm:FindFirstChild("Attachment"):FindFirstChild("ProximityPrompt")
+                enableProximityPrompt(proximityPrompt)
+            end
+        end
+    end
+})
