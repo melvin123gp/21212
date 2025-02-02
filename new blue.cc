@@ -2600,7 +2600,7 @@ AutoSection:AddButton({
 })
 
 AutoSection:AddButton({
-    Name = 'OPfinality',
+    Name = 'trolling gui',
     Callback = function()
        loadstring(game:HttpGet("https://raw.githubusercontent.com/melvin123gp/yo-mam/refs/heads/main/yo%20mam"))()() 
     end
