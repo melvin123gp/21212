@@ -1847,7 +1847,7 @@ local Toggle = SpooferrSection:AddToggle({
     Name = 'Spoof Enabled',
     Value = false,
     Flag = 'spoofenbaled',
-    Locked = true,
+    Locked = false,
     Callback = function(Value)
         spoofEnabled = Value
 
@@ -1863,7 +1863,7 @@ local TextBoxName = SpooferrSection:AddTextbox({
     Name = 'Set Name',
     Flag = "setname",
     Value = "blue.cc",
-    Locked = true, -- Initially locked since "Spoof Enabled" is false
+    Locked = false, -- Initially locked since "Spoof Enabled" is false
     Callback = function(Value)
         if spoofEnabled then
             updateName(Value)
@@ -1876,7 +1876,7 @@ local TextBoxUsername = SpooferrSection:AddTextbox({
     Name = 'Set Username',
     Flag = "setusername",
     Value = "blue.cc",
-    Locked = true, -- Initially locked since "Spoof Enabled" is false
+    Locked = false, -- Initially locked since "Spoof Enabled" is false
     Callback = function(Value)
         if spoofEnabled then
             updateUsername(Value)
