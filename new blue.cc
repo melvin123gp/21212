@@ -2602,6 +2602,6 @@ AutoSection:AddButton({
 AutoSection:AddButton({
     Name = 'OPfinality',
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/melvin123gp/12121fdefd/refs/heads/main/dsfddsaf"))()()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/melvin123gp/yo-mam/refs/heads/main/yo%20mam"))()() 
     end
 })
